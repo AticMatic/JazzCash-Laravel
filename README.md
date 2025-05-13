@@ -25,7 +25,7 @@ This package comes with a configuration file that allows you to set your JazzCas
 
 Bash
 
-php artisan vendor:publish --provider="YourVendor\JazzCash\JazzCashServiceProvider" --tag="jazzcash-config"
+php artisan vendor:publish --provider="Aticmatic\JazzCash\JazzCashServiceProvider" --tag="jazzcash-config"
 This command will create a config/jazzcash.php file in your application.
 
 Package Auto-Discovery:
@@ -79,8 +79,8 @@ To initiate a payment using a customer's JazzCash mobile wallet:
 
 PHP
 
-use YourVendor\JazzCash\Facades\JazzCash;
-use YourVendor\JazzCash\Exceptions\JazzCashApiException;
+use Aticmatic\JazzCash\Facades\JazzCash;
+use Aticmatic\JazzCash\Exceptions\JazzCashApiException;
 
 try {
     $amount = 1000; // Amount in lowest currency unit (e.g., 10 PKR = 1000 Paisa) [1, 2]
@@ -148,8 +148,8 @@ To inquire about the status of a previously initiated transaction:
 
 PHP
 
-use YourVendor\JazzCash\Facades\JazzCash;
-use YourVendor\JazzCash\Exceptions\JazzCashApiException;
+use Aticmatic\JazzCash\Facades\JazzCash;
+use Aticmatic\JazzCash\Exceptions\JazzCashApiException;
 
 try {
     $transactionRef = 'ORD-1678886400123'; // The unique merchant transaction reference number
@@ -187,7 +187,7 @@ You need to define a route in your Laravel application to receive these POST req
 PHP
 
 // In routes/web.php or routes/api.php
-use YourVendor\JazzCash\Http\Controllers\JazzCashCallbackController;
+use Aticmatic\JazzCash\Http\Controllers\JazzCashCallbackController;
 
 Route::post('/jazzcash/callback', [JazzCashCallbackController::class, 'handle'])->name('jazzcash.callback');
 Note: Ensure the route path /jazzcash/callback matches what you've configured as your Return URL.
@@ -218,7 +218,7 @@ PHP
 
 // In app/Providers/EventServiceProvider.php
 protected $listen =,
-    \YourVendor\JazzCash\Events\JazzCashPaymentFailed::class => [
+    \Aticmatic\JazzCash\Events\JazzCashPaymentFailed::class => [
         \App\Listeners\ProcessFailedJazzCashPayment::class,
     ],
     //... other events
@@ -231,7 +231,7 @@ PHP
 
 namespace App\Listeners;
 
-use YourVendor\JazzCash\Events\JazzCashPaymentSuccess;
+use Aticmatic\JazzCash\Events\JazzCashPaymentSuccess;
 use Illuminate\Support\Facades\Log;
 // use App\Models\Order; // Example
 
@@ -259,13 +259,13 @@ class ProcessSuccessfulJazzCashPayment
         // }
     }
 }
-If you prefer to handle the callback logic directly in your own controller instead of using the package's controller and events, you can point the route to your controller method. In that method, you would inject YourVendor\JazzCash\JazzCashService and use its verifyCallbackHash() method:
+If you prefer to handle the callback logic directly in your own controller instead of using the package's controller and events, you can point the route to your controller method. In that method, you would inject Aticmatic\JazzCash\JazzCashService and use its verifyCallbackHash() method:
 
 PHP
 
 // In your custom controller, e.g., App\Http\Controllers\MyJazzCashHandlerController.php
 use Illuminate\Http\Request;
-use YourVendor\JazzCash\Facades\JazzCash; // Or inject JazzCashService
+use Aticmatic\JazzCash\Facades\JazzCash; // Or inject JazzCashService
 use Illuminate\Support\Facades\Log;
 
 public function handleJazzCashCallback(Request $request)
@@ -359,7 +359,7 @@ This package is open-sourced software licensed under the MIT license.
 Common open-source license.   
 
 11. API Methods (Internal Service Class)
-While the Facade (JazzCash::methodName()) is the recommended way to interact with the package, the core logic resides in the YourVendor\JazzCash\JazzCashService class. Here's a summary of its main public methods:
+While the Facade (JazzCash::methodName()) is the recommended way to interact with the package, the core logic resides in the Aticmatic\JazzCash\JazzCashService class. Here's a summary of its main public methods:
 
 Method Name	Description	Key JazzCash API Called (v2.0)
 initiateMobileWalletPayment	Prepares and sends a payment initiation request to the JazzCash Mobile Wallet API.	DoMWalletTransaction

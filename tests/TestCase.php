@@ -3,7 +3,7 @@
 namespace Aticmatic\JazzCash\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Aticmatic\JazzCash\JazzCashServiceProvider;
+use Aticmatic\JazzCash\Providers\JazzCashServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
