@@ -39,9 +39,6 @@
     },
     "extra": {
         "laravel": {
-            "providers": [
-                "Aticmatic\\JazzCash\\Providers\\JazzCashServiceProvider"
-            ],
             "aliases": {
                 "JazzCash": "Aticmatic\\JazzCash\\Facades\\JazzCash"
             }
