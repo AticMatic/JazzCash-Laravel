@@ -1,6 +1,6 @@
 <?php
 
-namespace Aticmatic\JazzCash;
+namespace Aticmatic\JazzCash\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
